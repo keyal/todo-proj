@@ -7,9 +7,15 @@ import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 const { useState, useEffect } = React
 const { Link, useSearchParams } = ReactRouterDOM
 
+const { useSelector, useDispatch } = ReactRedux
+
 export function TodoIndex() {
 
-    const [todos, setTodos] = useState(null)
+    // const [todos, setTodos] = useState(null)
+
+    const todos = useSelector(storeState => storeState.todoModule.todos) // TODO: finish refactoring this to use redux
+    
+    const dispatch = useDispatch()
 
     // Special hook for accessing search-params:
     const [searchParams, setSearchParams] = useSearchParams()
