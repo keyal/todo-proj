@@ -5,7 +5,8 @@ export const SET_IS_LOADING = 'SET_IS_LOADING'
 
 const initialState = {
     todos: [],
-    isLoading: false
+    isLoading: false,
+    filterBy: []
 }
 
 
