@@ -1,4 +1,4 @@
-import { todoReducer } from "./reducers/todo.reducer"
+import { todoReducer } from "./reducers/todo.reducer.js"
 
 const { createStore, combineReducers, compose } = Redux
 

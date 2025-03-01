@@ -3,7 +3,9 @@
 export const CASE_A = 'CASE_A'
 export const CASE_B = 'CASE_B'
 
-const initialState = {}
+const initialState = {
+    asdf: "asdf"
+}
 
 
 export function todoReducer(state = initialState, cmd = {}) {
