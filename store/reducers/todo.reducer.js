@@ -1,22 +1,26 @@
-// import {} from "../../services/todo.service.js"
 
-export const CASE_A = 'CASE_A'
-export const CASE_B = 'CASE_B'
+
+export const SET_TODOS = 'SET_TODOS'
+export const SET_IS_LOADING = 'SET_IS_LOADING'
 
 const initialState = {
-    asdf: "asdf"
+    todos: [],
+    isLoading: false
 }
 
 
 export function todoReducer(state = initialState, cmd = {}) {
     switch (cmd.type) {
-        case CASE_A:
-            console.log('case a')
-            return state
-        case CASE_B:
-            console.log('case b')
-            return state
-        
+        case SET_TODOS:
+            return {
+                ...state,
+                todos: cmd.todos
+            }
+        case SET_IS_LOADING:
+            return {
+                ...state,
+                isLoading: cmd.isLoading
+            }
         default:
             return state
     }

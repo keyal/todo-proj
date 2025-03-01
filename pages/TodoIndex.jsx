@@ -13,8 +13,9 @@ const { useSelector, useDispatch } = ReactRedux
 export function TodoIndex() {
 
     // const [todos, setTodos] = useState(null)
-    const todos = useSelector(storeState => storeState.todoModule.todos) // TODO: finish refactoring this to use redux
-    const dispatch = useDispatch()
+    const todos = useSelector(storeState => storeState.todoModule.todos)
+    const isLoading = useSelector(storeState => storeState.todoModule.isLoading)
+    // const dispatch = useDispatch()
 
     // Special hook for accessing search-params:
     const [searchParams, setSearchParams] = useSearchParams()
@@ -59,7 +60,7 @@ export function TodoIndex() {
             })
     }
 
-    if (!todos) return <div>Loading...</div>
+    // if (!todos) return <div>Loading...</div>
     return (
         <section className="todo-index">
             <TodoFilter filterBy={filterBy} onSetFilterBy={setFilterBy} />
@@ -67,12 +68,16 @@ export function TodoIndex() {
                 <Link to="/todo/edit" className="btn" >Add Todo</Link>
             </div>
             <h2>Todos List</h2>
-            <TodoList todos={todos} onRemoveTodo={onRemoveTodo} onToggleTodo={onToggleTodo} />
-            <hr />
-            <h2>Todos Table</h2>
-            <div style={{ width: '60%', margin: 'auto' }}>
-                <DataTable todos={todos} onRemoveTodo={onRemoveTodo} />
-            </div>
+            {isLoading ? <div>Loading. . .</div> :
+                <div>
+                    <TodoList todos={todos} onRemoveTodo={onRemoveTodo} onToggleTodo={onToggleTodo} />
+                    <hr />
+                    <h2>Todos Table</h2>
+                    <div style={{ width: '60%', margin: 'auto' }}>
+                        <DataTable todos={todos} onRemoveTodo={onRemoveTodo} />
+                    </div>
+                </div>
+            }
         </section>
     )
 }
