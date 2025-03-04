@@ -1,13 +1,17 @@
-const { useState, useEffect } = React
+import { setTodoFilter } from "../store/actions/todo.actions.js"
 
-export function TodoFilter({ filterBy, onSetFilterBy }) {
+const { useEffect } = React
+const { useSelector } = ReactRedux
 
-    const [filterByToEdit, setFilterByToEdit] = useState({...filterBy})
+export function TodoFilter() {
 
-    useEffect(() => {
-        // Notify parent
-        onSetFilterBy(filterByToEdit)
-    }, [filterByToEdit])
+    // const [filterBy, setfilterBy] = useState({...filterBy})
+    const filterBy = useSelector(storeState => storeState.todoModule.filterBy)
+
+    // useEffect(() => {
+    //     // Notify parent
+    //     setTodoFilter(filterBy)
+    // }, [filterBy])
 
     function handleChange({ target }) {
         const field = target.name
@@ -26,16 +30,16 @@ export function TodoFilter({ filterBy, onSetFilterBy }) {
             default: break
         }
 
-        setFilterByToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
+        setTodoFilter({ ...filterBy, [field]: value })
     }
 
     // Optional support for LAZY Filtering with a button
     function onSubmitFilter(ev) {
         ev.preventDefault()
-        onSetFilterBy(filterByToEdit)
+        setTodoFilter(filterBy)
     }
 
-    const { txt, importance } = filterByToEdit
+    const { txt, importance } = filterBy
     return (
         <section className="todo-filter">
             <h2>Filter Todos</h2>

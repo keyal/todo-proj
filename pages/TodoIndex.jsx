@@ -5,7 +5,7 @@ import { todoService } from "../services/todo.service.js"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 import { loadTodos } from "../store/actions/todo.actions.js"
 
-const { useState, useEffect } = React
+const { useEffect } = React
 const { Link, useSearchParams } = ReactRouterDOM
 
 const { useSelector, useDispatch } = ReactRedux
@@ -18,14 +18,15 @@ export function TodoIndex() {
     // const dispatch = useDispatch()
 
     // Special hook for accessing search-params:
-    const [searchParams, setSearchParams] = useSearchParams()
+    // const [searchParams, setSearchParams] = useSearchParams() // TODO: bring searchParam support back
 
-    const defaultFilter = todoService.getFilterFromSearchParams(searchParams)
+    // const defaultFilter = todoService.getFilterFromSearchParams(searchParams) // TODO: bring searchParam support back
 
-    const [filterBy, setFilterBy] = useState(defaultFilter)
+    // const [filterBy, setFilterBy] = useState(defaultFilter)
+    const filterBy = useSelector(storeState => storeState.todoModule.filterBy)
 
     useEffect(() => {
-        setSearchParams(filterBy)
+        // setSearchParams(filterBy) // TODO: bring searchParam support back
         loadTodos(filterBy)
         // todoService.query(filterBy)
         //     .then(todos => setTodos(todos))
@@ -63,10 +64,8 @@ export function TodoIndex() {
     // if (!todos) return <div>Loading...</div>
     return (
         <section className="todo-index">
-            <TodoFilter filterBy={filterBy} onSetFilterBy={setFilterBy} />
-            <div>
-                <Link to="/todo/edit" className="btn" >Add Todo</Link>
-            </div>
+            <TodoFilter />
+            <Link to="/todo/edit" className="btn" >Add Todo</Link>
             <h2>Todos List</h2>
             {isLoading ? <div>Loading. . .</div> :
                 <div>

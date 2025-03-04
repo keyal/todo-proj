@@ -1,5 +1,5 @@
 import { todoService } from "../../services/todo.service.js"
-import { SET_IS_LOADING, SET_TODOS } from "../reducers/todo.reducer.js"
+import { SET_IS_LOADING, SET_TODO_FILTER, SET_TODOS } from "../reducers/todo.reducer.js"
 import { store } from "../store.js"
 
 export function loadTodos(filterBy) {
@@ -13,7 +13,12 @@ export function loadTodos(filterBy) {
             showErrorMsg('Cannot load todos')
         })
         .finally(() => {
-            console.log('set is loading here')
             store.dispatch({ type: SET_IS_LOADING, isLoading: false })
         })
+}
+
+export function setTodoFilter(filterBy) {
+    // console.log('in setTodoFilter action. filterBy:', filterBy)
+    store.dispatch({ type: SET_TODO_FILTER, filterBy })
+    return Promise.resolve(filterBy)
 }
